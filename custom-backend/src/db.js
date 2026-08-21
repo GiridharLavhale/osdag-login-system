@@ -7,12 +7,13 @@ if (!process.env.DATABASE_URL) {
   process.exit(1);
 }
 
-// Neon/Supabase both require SSL. Most free-tier connection strings already
-// include `sslmode=require`, but we set rejectUnauthorized: false as well
-// since their certs aren't always in Node's default trust store.
+// Cloud databases (Neon/Supabase) require SSL; a local Postgres install
+// normally doesn't have it enabled at all. Detect which one we're talking
+// to from the connection string so the same code works for both.
+const isLocal = /localhost|127\.0\.0\.1/.test(process.env.DATABASE_URL);
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false },
+  ssl: isLocal ? false : { rejectUnauthorized: false },
 });
 
 pool.on("error", (err) => {
