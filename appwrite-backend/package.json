@@ -1,0 +1,13 @@
+{
+  "name": "osdag-login-appwrite-seed",
+  "version": "1.0.0",
+  "description": "One-off seed script that creates the 3 demo users and their files in Appwrite.",
+  "main": "scripts/seed.js",
+  "scripts": {
+    "seed": "node scripts/seed.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "node-appwrite": "^28.0.0"
+  }
+}

@@ -47,10 +47,10 @@ backends must match, but neither backend is allowed to just call into them.
       accidentally skipping validation)
 
 **Docs & submission**
-- [ ] Top-level `README.md` linking both implementations
+- [x] Top-level `README.md` linking both implementations
 - [x] `custom-backend/README.md` — JWT vs session reasoning, logout
       mechanism, data isolation approach, what I'd improve
-- [ ] `appwrite-backend/README.md` — same, plus what Appwrite handled
+- [x] `appwrite-backend/README.md` — same, plus what Appwrite handled
       automatically vs what needed manual config
 - [ ] Short screen-recorded video showing both backends working (silent OK)
 - [ ] Report (PDF)
@@ -71,17 +71,21 @@ backends must match, but neither backend is allowed to just call into them.
 
 ## Remaining build order
 
-1. **You**: get `custom-backend/` running end-to-end against real Postgres
-   (current step — see chat for the walkthrough).
-2. **You**: click through every button in the test client against the
+1. ~~**You**: get `custom-backend/` running end-to-end against real Postgres.~~ ✅ Done
+2. ~~**You**: click through every button in the test client against the
    custom backend, confirm 403 vs 404 works, confirm lockout kicks in after
-   5 bad logins.
-3. **Us**: build `appwrite-backend/` — Appwrite Console setup (Database
-   collection with per-user permissions, Storage bucket) + `appwrite-adapter.js`
-   implementing the same contract via the Appwrite Web SDK.
-4. **Us**: test the Appwrite mode the same way.
-5. **Us**: write the top-level README and the Appwrite README.
-6. **You**: record the demo video, write the report, submit.
+   5 bad logins.~~ ✅ Done — verified 403 (other user's file), 404 (missing
+   file), 401 (post-logout), 429 (lockout after 5 failed logins).
+3. ~~**Us**: build `appwrite-backend/` — Appwrite Console setup + adapter.~~
+   ✅ Done — Auth, database, `files` table, seeded 3 users + 6 files.
+4. ~~**Us**: test the Appwrite mode the same way.~~ ✅ Done — verified 200
+   on /me and /files, 403 on another user's file, 404 on a missing file,
+   401 after logout.
+5. ~~**Us**: write the top-level README and the Appwrite README.~~ ✅ Done
+6. **You**: revoke the Appwrite API key that was pasted in chat and create a
+   fresh one (only needed again if you re-run the seed script).
+7. **You**: push everything to GitHub (see chat for exact commands).
+8. **You**: record the demo video, write the report, submit. ← **current step**
 
 ## Non-goals (explicitly out of scope, don't spend time here)
 
